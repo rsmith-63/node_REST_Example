@@ -1,0 +1,37 @@
+{
+  "name": "node_rest_example",
+  "version": "1.0.0",
+  "description": "Simple demo using KOA web framework with all REST verbs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rsmith-63/node_REST_Example.git"
+  },
+  "keywords": [
+    "REST",
+    "KOA"
+  ],
+  "author": "Rob Smith",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rsmith-63/node_REST_Example/issues"
+  },
+  "homepage": "https://github.com/rsmith-63/node_REST_Example#readme",
+  "dependencies": {
+    "kcors": "^2.2.2",
+    "koa": "^2.7.0",
+    "koa-bodyparser": "^4.2.1",
+    "koa-compress": "^3.0.0",
+    "koa-convert": "^1.2.0",
+    "koa-generic-session": "^2.0.1",
+    "koa-logger": "^3.2.0",
+    "koa-mount": "^4.0.0",
+    "koa-request": "^1.0.0",
+    "koa-router": "^7.4.0",
+    "koa-session": "^5.10.1",
+    "koa-static": "^5.0.0"
+  }
+}
