@@ -21,22 +21,23 @@ const filterArr = (arry,val) => {
 } ;
 
 const pf = (msg) =>{
+    let min = 1,
+        max = 10;
+    let rand = Math.floor(Math.random() * (max - min + 1) + min);
 
-    var rand = Math.random();
-    console.log('rand ', rand);
     return new Promise((resolve, reject) => {
         setTimeout(() => resolve(msg), rand*100 )
     });
 };
 
 
-async function asyncFunction( msg) {
+async function saveItemOnDatabase( msg) {
 
 
-    const result = await pf(msg);
+
     // wait till the promise resolves (*)
 
-    return result;
+    return await pf(msg);
 }
 
 
@@ -57,7 +58,6 @@ router.get("/api/getBookList", (ctx,next) =>{
 router.post("/api/addBook", (ctx,next) =>{
 
     const {book} = ctx.request.body;
-    console.log(`try to add book ${book}`);
     if(book){
         if(!myLibary.includes(book)){
             myLibary.push(book);
@@ -81,7 +81,7 @@ router.del("/api/deleteBook", (ctx,next) =>{
 
     let queryString = url.parse(ctx.originalUrl,true);
     let {book} = queryString.query;
-    console.log(`try to delete book ${book}`);
+
     if(myLibary.includes(book)){
         myLibary = filterArr(myLibary,book);
         ctx.type = "application/json";
@@ -99,7 +99,6 @@ router.patch("/api/updateBook", (ctx,next) =>{
 
     let queryString = url.parse(ctx.originalUrl,true);
     let {original_book,new_book} = queryString.query;
-    console.log(`try to updateBook book ${original_book}`);
     if(myLibary.includes(original_book)){
        const idx = myLibary.indexOf(original_book);
         myLibary[idx] = new_book;
@@ -117,13 +116,15 @@ router.patch("/api/updateBook", (ctx,next) =>{
 router.put("/api/saveBooks", async (ctx, next) => {
     const {books} = ctx.request.body;
     const bookArry = books.split('|');
-
+    const out = {};
     for (let i = 0; i < bookArry.length; i++) {
-        console.log( `book ${bookArry[i]}` );
-        let res = await asyncFunction(bookArry[i]);
-        console.log( `loop over books ${res}` )
-    }
+        let start = Date.now();
+        await saveItemOnDatabase(bookArry[i]);
+        let end = Date.now();
+        out[bookArry[i]] = end-start;
 
+    }
+    ctx.body = JSON.stringify(out);
     ctx.status = 200;
 
 });
