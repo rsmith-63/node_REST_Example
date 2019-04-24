@@ -1,0 +1,233 @@
+{
+	"info": {
+		"_postman_id": "d9d3ceca-a359-4142-bde6-20bb9bbb2d1e",
+		"name": "node_REST_Example",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://LOCALHOST:4009/api/getBookList",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://LOCALHOST:4009/api/getBookList",
+					"protocol": "http",
+					"host": [
+						"LOCALHOST"
+					],
+					"port": "4009",
+					"path": [
+						"api",
+						"getBookList"
+					]
+				},
+				"description": "get list of books"
+			},
+			"response": []
+		},
+		{
+			"name": "http://LOCALHOST:4009/api/saveBooks",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "books",
+							"value": "Don Quixote|Pilgrim's Progress|Robinson Crusoe|Gulliver's Travels|Tom Jones|Clarissa|Tristram Shandy|Dangerous Liaisons|Emma|Frankenstein|Nightmare Abbey",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://LOCALHOST:4009/api/saveBooks",
+					"protocol": "http",
+					"host": [
+						"LOCALHOST"
+					],
+					"port": "4009",
+					"path": [
+						"api",
+						"saveBooks"
+					]
+				},
+				"description": "Simulate DB processing"
+			},
+			"response": []
+		},
+		{
+			"name": "http://LOCALHOST:4009/api/testError",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://LOCALHOST:4009/api/testError",
+					"protocol": "http",
+					"host": [
+						"LOCALHOST"
+					],
+					"port": "4009",
+					"path": [
+						"api",
+						"testError"
+					]
+				},
+				"description": "test error logging"
+			},
+			"response": []
+		},
+		{
+			"name": "http://LOCALHOST:4009/api/status",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://LOCALHOST:4009/api/status",
+					"protocol": "http",
+					"host": [
+						"LOCALHOST"
+					],
+					"port": "4009",
+					"path": [
+						"api",
+						"status"
+					]
+				},
+				"description": "test api status "
+			},
+			"response": []
+		},
+		{
+			"name": "http://LOCALHOST:4009/api/addBook",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "book",
+							"value": "a short history of time",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://LOCALHOST:4009/api/addBook",
+					"protocol": "http",
+					"host": [
+						"LOCALHOST"
+					],
+					"port": "4009",
+					"path": [
+						"api",
+						"addBook"
+					]
+				},
+				"description": "Add a book"
+			},
+			"response": []
+		},
+		{
+			"name": "http://LOCALHOST:4009/api/deleteBook?book=a short history of time",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "book",
+							"value": "a tail of two cities",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "http://LOCALHOST:4009/api/deleteBook?book=a short history of time",
+					"protocol": "http",
+					"host": [
+						"LOCALHOST"
+					],
+					"port": "4009",
+					"path": [
+						"api",
+						"deleteBook"
+					],
+					"query": [
+						{
+							"key": "book",
+							"value": "a short history of time"
+						}
+					]
+				},
+				"description": "Delete and added book"
+			},
+			"response": []
+		},
+		{
+			"name": "http://LOCALHOST:4009/api/updateBook?original_book=Emma&new_book=hitchhiker's guide to the galaxy",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://LOCALHOST:4009/api/updateBook?original_book=Emma&new_book=hitchhiker's guide to the galaxy",
+					"protocol": "http",
+					"host": [
+						"LOCALHOST"
+					],
+					"port": "4009",
+					"path": [
+						"api",
+						"updateBook"
+					],
+					"query": [
+						{
+							"key": "original_book",
+							"value": "Emma"
+						},
+						{
+							"key": "new_book",
+							"value": "hitchhiker's guide to the galaxy"
+						}
+					]
+				},
+				"description": "Replace a book"
+			},
+			"response": []
+		}
+	]
+}
