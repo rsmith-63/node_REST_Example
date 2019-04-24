@@ -5,9 +5,8 @@
 
 const router = require('koa-router')(),
     url = require('url');
-let data = require('./dummyData')
+let {myLibary} = require('./dummyData');
 
-const userCache = [];
 
 
 //Set up router
@@ -21,6 +20,24 @@ const filterArr = (arry,val) => {
     });
 } ;
 
+const pf = (msg) =>{
+
+    var rand = Math.random();
+    console.log('rand ', rand);
+    return new Promise((resolve, reject) => {
+        setTimeout(() => resolve(msg), rand*100 )
+    });
+};
+
+
+async function asyncFunction( msg) {
+
+
+    const result = await pf(msg);
+    // wait till the promise resolves (*)
+
+    return result;
+}
 
 
 
@@ -33,19 +50,17 @@ router.get("/api/testError", (ctx,next) =>{
 });
 router.get("/api/getBookList", (ctx,next) =>{
 
-    ctx.body = JSON.stringify(data.myLibary.join('|'));
+    ctx.body = JSON.stringify(myLibary.join('|'));
     ctx.type = "application/json";
 
 });
 router.post("/api/addBook", (ctx,next) =>{
 
-    //let queryString = url.parse(ctx.originalUrl,true);
-    //let {book} = queryString.query;
     const {book} = ctx.request.body;
     console.log(`try to add book ${book}`);
     if(book){
-        if(!data.myLibary.includes(book)){
-            data.myLibary.push(book);
+        if(!myLibary.includes(book)){
+            myLibary.push(book);
             ctx.type = "application/json";
             ctx.status = 201;
 
@@ -67,8 +82,8 @@ router.del("/api/deleteBook", (ctx,next) =>{
     let queryString = url.parse(ctx.originalUrl,true);
     let {book} = queryString.query;
     console.log(`try to delete book ${book}`);
-    if(data.myLibary.includes(book)){
-        data.myLibary = filterArr(data.myLibary,book);
+    if(myLibary.includes(book)){
+        myLibary = filterArr(myLibary,book);
         ctx.type = "application/json";
         ctx.status = 200;
 
@@ -85,9 +100,9 @@ router.patch("/api/updateBook", (ctx,next) =>{
     let queryString = url.parse(ctx.originalUrl,true);
     let {original_book,new_book} = queryString.query;
     console.log(`try to updateBook book ${original_book}`);
-    if(data.myLibary.includes(original_book)){
-       const idx = data.myLibary.indexOf(original_book);
-        data.myLibary[idx] = new_book;
+    if(myLibary.includes(original_book)){
+       const idx = myLibary.indexOf(original_book);
+        myLibary[idx] = new_book;
         ctx.type = "application/json";
         ctx.status = 200;
 
@@ -99,7 +114,19 @@ router.patch("/api/updateBook", (ctx,next) =>{
 
 });
 
+router.put("/api/saveBooks", async (ctx, next) => {
+    const {books} = ctx.request.body;
+    const bookArry = books.split('|');
 
+    for (let i = 0; i < bookArry.length; i++) {
+        console.log( `book ${bookArry[i]}` );
+        let res = await asyncFunction(bookArry[i]);
+        console.log( `loop over books ${res}` )
+    }
+
+    ctx.status = 200;
+
+});
 module.exports = router;
 
 
