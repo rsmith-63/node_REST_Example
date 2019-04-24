@@ -119,7 +119,13 @@ router.put("/api/saveBooks", async (ctx, next) => {
     const out = {};
     for (let i = 0; i < bookArry.length; i++) {
         let start = Date.now();
-        await saveItemOnDatabase(bookArry[i]);
+        try {
+            await saveItemOnDatabase(bookArry[i]);
+        }
+        catch (e) {
+            ctx.status = 400;
+            throw (Error('DB error'));
+        }
         let end = Date.now();
         out[bookArry[i]] = end-start;
 
